@@ -1,4 +1,3 @@
-version: '3'
 services:
   challenge-backend-magalu-api:
     container_name: challenge-backend-magalu-api
@@ -9,13 +8,39 @@ services:
     ports:
       - 9501:9501
       - 9502:9502
+    networks:
+      - challenge-backend-magalu-api
     environment:
       - APP_ENV=dev
       - SCAN_CACHEABLE=false
     stdin_open: true
     tty: true 
     restart: always
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      #POSTGRES_DB: localstack
+    ports:
+      - 5432:5432
+    networks:
+      - challenge-backend-magalu-api
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    ports:
+      - 5050:80
+      - 5051:443
+    networks:
+      - challenge-backend-magalu-api
+    depends_on:
+      - postgres
 
 networks:
-  default:
-    name: challenge-backend-magalu-api
+  challenge-backend-magalu-api:
+    external: true
