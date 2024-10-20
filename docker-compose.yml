@@ -44,7 +44,7 @@ services:
     image: confluentinc/cp-zookeeper:latest
     container_name: kafka-zookeeper
     networks:
-      - global-default
+      - challenge-backend-magalu-api
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -52,7 +52,7 @@ services:
     image: confluentinc/cp-kafka:latest
     container_name: kafka-1
     networks:
-      - global-default
+      - challenge-backend-magalu-api
     depends_on:
       - zookeeper
     ports:
@@ -65,7 +65,7 @@ services:
     image: confluentinc/cp-kafka:latest
     container_name: kafka-2
     networks:
-      - global-default
+      - challenge-backend-magalu-api
     ports:
       - 29092:29092
     depends_on:
@@ -78,7 +78,7 @@ services:
     image: confluentinc/cp-kafka:latest
     container_name: kafka-3
     networks:
-      - global-default
+      - challenge-backend-magalu-api
     ports:
       - 39092:39092
     depends_on:
@@ -91,7 +91,7 @@ services:
     image: quay.io/cloudhut/kowl:master
     container_name: kafka-kowl
     networks:
-      - global-default
+      - challenge-backend-magalu-api
     ports:
       - 8080:8080
     depends_on:
